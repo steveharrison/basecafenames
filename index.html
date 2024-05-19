@@ -44,7 +44,15 @@
           font-size: 30px;
           font-family: "Courier New";
           background: rgb(246, 246, 246);
-          border: 1px solid #000000
+          border: 1px solid #000000;
+          
+          &.correct {
+            border-color: green;
+          }
+          
+          &.incorrect {
+            border-color: red;
+          }
         }
         
         section {
@@ -61,11 +69,43 @@
 <body>
     <div class="card">
         <h1>Which of the following is a bullsh**t cafe name?</h1>
-        <section>
-          <button>Maple &amp; Clove</button>
-          <div class="or">&mdash; OR &mdash;</div>
-          <button>Whisk &amp; Pin</button>
+        <section id="buttonContainer">
+          <!-- <button class="correct" data-answer="Maple & Clove" onclick="chooseAnswer('Maple & Clove')">Maple &amp; Clove</button> -->
+          <!-- <div class="or">&mdash; OR &mdash;</div> -->
+          <!-- <button class="incorrect" data-answer="Whisk & Pin" onclick="chooseAnswer('Whisk & Pin')">Whisk &amp; Pin</button> -->
         </section>
     </div>
+    
+    <script>
+      const answers = ["Maple & Clove", "Whisk & Pin"];
+      const correctAnswer = "Maple & Clove";
+      const incorrectAnswer = "Whisk & Pin";
+      
+      function renderCard() {
+        for (const answer of answers) {
+          const button = document.createElement('button');
+          button.textContent = answer;
+          button.setAttribute('data-answer', answer);
+          button.onclick = () => chooseAnswer(answer);
+          document.getElementById('buttonContainer').appendChild(button);
+        }
+      }
+      
+      window.onload = renderCard;
+      
+      function chooseAnswer() {
+        Array.from(document.querySelectorAll('button')).map((button) => {
+          if (button.textContent === correctAnswer) {
+            button.className = 'correct';
+          } else {
+            button.className = 'incorrect';
+          }
+        });
+        
+        setTimeout(function() {
+          window.location.reload();
+        }, 1200);
+      }
+  </script>
 </body>
 </html>
