@@ -79,7 +79,7 @@
     </div>
     
     <script>
-      const legitCafeNames = [
+      const legitCafes = [
         { name: "The Cupping Room", location: "canberra" },
         { name: "Highroad", location: "canberra" },
         { name: "Intra", location: "canberra" },
@@ -339,7 +339,7 @@
         // - Populate the UI with these values from the array.
         
         const correctAnswer = getRandomItem(bsCafeNames);
-        const incorrectAnswer = getRandomItem(legitCafeNames.map(c => c.name));
+        const incorrectAnswer = getRandomItem(legitCafes.map(c => c.name));
         const answers = shuffleArray([correctAnswer, incorrectAnswer].slice());
   
         for (const answer of answers) {
@@ -350,12 +350,10 @@
           document.getElementById('buttonContainer').appendChild(button);
         }
         
-        function chooseAnswer() {
+        function chooseAnswer(selectedAnswer) {
           Array.from(document.querySelectorAll('button')).map((button) => {
-            if (button.textContent === correctAnswer) {
-              button.className = 'correct';
-            } else {
-              button.className = 'incorrect';
+            if (button.textContent === selectedAnswer) {
+              button.className = selectedAnswer === correctAnswer ? 'correct' : 'incorrect';
             }
           });
           
